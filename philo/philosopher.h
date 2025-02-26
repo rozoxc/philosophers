@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:39:19 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/25 01:22:30 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/02/26 00:02:41 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ typedef struct t_data
     long start_time; 
     int all_ate; // wax kamlin klaw
     int death; //wax l philo mat
+    int number_of_meals; //optional
+    pthread_mutex_t write_mutex;
+    pthread_mutex_t dead_mutex;
+    pthread_mutex_t *forks;
 
 } s_data;
 
@@ -36,8 +40,8 @@ typedef struct t_philo
 {
     int id;
     int meals_eaten;
-    long last_meal;
-    pthread_t pid;
+    long last_meal_time;
+    pthread_t thread;
     pthread_mutex_t right_fork;
     pthread_mutex_t left_fork;
     s_data          *data;
@@ -46,9 +50,20 @@ typedef struct t_philo
 
 // utils functions 
 int	ft_atoi(const char *str);
+void print_status(s_philo *philo, char *message);
 
 //time functions
 long    get_time();
 void    ft_sleep(long miliseconde);
 
+//initialization functions
+int init_data(s_data *data, int ac, char **av);
+int init_philo(s_philo **philo, s_data *data);
+int int_forks(s_data *data);
+
+//simulations functions
+void    *philosopher_routine(void *arg);
+int     start_simulation(s_philo *philos, s_data *data);
+void    check_death(s_philo *philos, s_data *data);
+void    stop_simulation(s_philo *philos, s_data *data);
 #endif

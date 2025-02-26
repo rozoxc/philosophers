@@ -5,59 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/24 18:33:13 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/24 18:41:50 by ababdoul         ###   ########.fr       */
+/*   Created: 2025/02/25 23:55:03 by ababdoul          #+#    #+#             */
+/*   Updated: 2025/02/26 00:02:20 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-static int	spaces(const char *str)
+int ft_strcmp(char *s1, char *s2)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+	while ((s1[i] != '\0' || s2[i] != '\0') && s1[i] == s2[i])
 	{
 		i++;
 	}
-	return (i);
+	return (s1[i] - s2[i]);
 }
 
-static int	signe_char(char c)
+void print_status(s_philo *philo, char *message)
 {
-	if (c == '-')
-	{
-		return (-1);
-	}
-	return (1);
-}
+	long time_stamp;
+	s_data *data;
 
-int	ft_atoi(const char *str)
-{
-	int				i;
-	int				signe;
-	long			result;
-
-	i = spaces(str);
-	result = 0;
-	signe = 1;
-	if (str[i] == '-' || str[i] == '+')
+	data = philo->data;
+	pthread_mutex_lock(&data->dead_mutex);
+	if (!data->death || !ft_strcmp(message, "died"))
 	{
-		signe = signe_char(str[i++]);
+		time_stamp = get_time() - data->start_time;
+		pthread_mutex_lock(&data->write_mutex);
+		printf("%ld %d %s\n", time_stamp, philo->id, message);
+		pthread_mutex_unlock(&data->write_mutex);
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		if (result > 922337203685477580
-			|| (result == 922337203685477580 && (str[i] - '0') > 7))
-		{
-			if (signe == 1)
-				return (-1);
-			else
-				return (0);
-		}
-		result = (result * 10) + (str[i] - '0');
-		i++;
-	}
-	return (result * signe);
+	pthread_mutex_unlock(&data->dead_mutex);
 }

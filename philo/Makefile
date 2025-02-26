@@ -1,8 +1,13 @@
 NAME = philo
 CC = cc
-FLAGS = -Wall -Wextra -Werror
+# FLAGS = -Wall -Wextra -Werror
 SRC = philo.c \
 	philo_utils.c \
+	init.c \
+	time.c \
+	action.c \
+	ft_atoi.c \
+	
 	
 HEADER = philosopher.h
 OBJS = $(SRC:.c=.o)
