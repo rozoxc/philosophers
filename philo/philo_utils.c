@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 23:55:03 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/26 00:02:20 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/02/28 01:32:38 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void print_status(s_philo *philo, char *message)
 	{
 		time_stamp = get_time() - data->start_time;
 		pthread_mutex_lock(&data->write_mutex);
-		printf("%ld %d %s\n", time_stamp, philo->id, message);
+		printf("%ld ms :  philo[%d] %s\n", time_stamp, philo->id, message);
 		pthread_mutex_unlock(&data->write_mutex);
 	}
 	pthread_mutex_unlock(&data->dead_mutex);

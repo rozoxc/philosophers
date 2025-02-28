@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:47:02 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/25 22:09:37 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/02/28 01:34:42 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int main(int ac, char **av)
 {
     s_data data;
     s_philo *philo;
-    // data = NULL;
+
     if (!check_argument(ac))
     {
         printf("invalid number of argument!!\n");
@@ -51,8 +51,10 @@ int main(int ac, char **av)
         return (0);
     }
     if (!init_data(&data, ac, av))
+        return (printf("error of inizialize data!!!\n"), 0);
+    if (!init_forks(&data))
     {
-        printf("error of inizialize data !!!\n");
+        printf("faild to initialize forks!! \n");
         return (0);
     }
     if (!init_philo(&philo, &data))
@@ -61,9 +63,5 @@ int main(int ac, char **av)
         return (0);
     }
     if (!start_simulation(philo, &data))
-    {
-        printf("start simulation faild !!");
-        return (0);
-    }
-    
+        return (printf("start simulation faild !!"), 0);
 }

@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:10:16 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/25 22:05:11 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:49:17 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int init_data(s_data *data, int ac, char **av)
 {
+
     data->philosopher_count = ft_atoi(av[1]);
     data->time_to_die = ft_atoi(av[2]);
     data->time_to_eat = ft_atoi(av[3]);
@@ -33,7 +34,7 @@ int init_data(s_data *data, int ac, char **av)
         return (0);
     return (1);
 }
-int int_forks(s_data *data)
+int init_forks(s_data *data)
 {
     int i;
 
@@ -65,9 +66,9 @@ int init_philo(s_philo **philo, s_data *data)
         (*philo)[i].id = j;
         (*philo)[i].meals_eaten = 0;
         (*philo)[i].last_meal_time =  data->start_time;
-        (*philo)[i].data = data;
         (*philo)[i].left_fork = data->forks[i];
         (*philo)[i].right_fork = data->forks[(i + 1) % data->philosopher_count];
+        (*philo)[i].data = data;
         i++;
         j++;
     }

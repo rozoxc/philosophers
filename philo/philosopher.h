@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:39:19 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/26 00:02:41 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:47:53 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ void    ft_sleep(long miliseconde);
 //initialization functions
 int init_data(s_data *data, int ac, char **av);
 int init_philo(s_philo **philo, s_data *data);
-int int_forks(s_data *data);
+int init_forks(s_data *data);
 
 //simulations functions
-void    *philosopher_routine(void *arg);
+void    *philosopher_routine();
 int     start_simulation(s_philo *philos, s_data *data);
 void    check_death(s_philo *philos, s_data *data);
 void    stop_simulation(s_philo *philos, s_data *data);
