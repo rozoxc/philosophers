@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 21:56:49 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/28 02:43:56 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/03 19:45:03 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void *philosopher_routine(void *arg)
     data = philo->data;
     if (!data)
         return NULL;
+    if (data->philosopher_count == 0)
+    {
+        printf("there is no philosopher !!\n");
+        return (NULL);
+    }
     if (data->philosopher_count == 1)
     {
         print_status(philo, "has taken a fork");
@@ -30,6 +35,8 @@ void *philosopher_routine(void *arg)
         print_status(philo, "died");
         return (NULL);
     }
+    // else if (data->philosopher_count > 1)
+    //     algo_philo(philo, data);
     return (NULL);
 }
 
@@ -38,13 +45,12 @@ int     start_simulation(s_philo *philos, s_data *data)
     int i;
 
     i = 0;
-    // printf("m = %d\n", data->philosopher_count);
     while (i < data->philosopher_count)
     {
         philos[i].last_meal_time = get_time();
         if (pthread_create(&philos[i].thread, NULL, philosopher_routine, &philos[i]) != 0)
             return (0);
-        usleep(100);   
+        pthread_join(philos[i].thread, NULL);
         i++;
     }
     return (1);

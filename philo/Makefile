@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc
-# FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 SRC = philo.c \
 	philo_utils.c \
 	init.c \
@@ -29,4 +29,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-

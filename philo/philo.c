@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:47:02 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/28 01:34:42 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:59:36 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,6 @@ int check_argument(int i)
     return (0);
 }
 
-void *message()
-{
-    printf("thread detected ****\n");
-    return NULL;
-}
-// int creat_threads(int number_of_philo)
-// {
-//     int i;
-//     pthread_t pid;
-
-//     i = 0;
-//     while (i < number_of_philo)
-//     {
-//         if (pthread_create(&pid, NULL, message, NULL))
-//             return (0);
-//         pthread_join(pid, NULL);
-//         i++;
-//     }
-//     return (1);
-// }
 int main(int ac, char **av)
 {
     s_data data;
@@ -59,7 +39,7 @@ int main(int ac, char **av)
     }
     if (!init_philo(&philo, &data))
     {
-        printf("faild to inizialize philosophers !!\n");
+        printf("faild to inizialize philosophers !!\n"); 
         return (0);
     }
     if (!start_simulation(philo, &data))

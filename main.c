@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 21:00:47 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/21 21:37:28 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:47:45 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 //     printf("after thread\n");
 // }
 
-void *function()
+void *function(void *arg)
 {
-    static int i = 0;
+    int i = *(int *)arg;
     printf("thread detected ****  : %d\n", i);
     i++;    
     sleep(2);
@@ -39,15 +39,15 @@ void *function()
 int main(int ac , char **av)
 {
     pthread_t id1, id2, id3;
-
+    int i1 = 0, i2 = 1, i3 = 2;
     // printf("first thread id : %d\n",pthread_create(&id1, NULL, &function, NULL));
-    if (pthread_create(&id1, NULL, &function, NULL) != 0)
+    if (pthread_create(&id1, NULL, &function, &id1) != 0)
         return (1);
     // printf("seconde thread id : %d\n",pthread_create(&id2, NULL, &function, NULL));
-    if (pthread_create(&id2, NULL, &function, NULL) != 0)
+    if (pthread_create(&id2, NULL, &function, &id2) != 0)
         return  (2);
     // printf("third thread id : %d\n",pthread_create(&id3, NULL, &function, NULL));
-    if (pthread_create(&id3, NULL, &function, NULL))
+    if (pthread_create(&id3, NULL, &function, &id3))
         return (3);
     pthread_join(id1, NULL);
     pthread_join(id2, NULL);

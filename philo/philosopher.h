@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:39:19 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/27 17:47:53 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:57:36 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,6 @@ void    *philosopher_routine();
 int     start_simulation(s_philo *philos, s_data *data);
 void    check_death(s_philo *philos, s_data *data);
 void    stop_simulation(s_philo *philos, s_data *data);
+void    algo_philo(s_philo *philo, s_data *data);
+
 #endif
