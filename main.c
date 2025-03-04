@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 21:00:47 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/23 14:47:45 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/04 04:05:05 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,7 @@ int main(int ac , char **av)
     pthread_join(id1, NULL);
     pthread_join(id2, NULL);
     pthread_join(id3, NULL);
+
+
+    printf("%d\n", 2 % 5);
 }

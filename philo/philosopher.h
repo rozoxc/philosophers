@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:39:19 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/03 15:57:36 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/04 04:12:48 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <limits.h>
+
 
 typedef struct t_data
 {

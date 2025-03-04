@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:10:16 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/04 00:01:21 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/04 03:54:44 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int init_philo(s_philo **philo, s_data *data)
         (*philo)[i].left_fork = data->forks[i];
         (*philo)[i].right_fork = data->forks[(i + 1) % data->philosopher_count];
         (*philo)[i].data = data;
+        printf(" philo number : %d\n", (*philo)[i].id );
         i++;
         j++;
     }

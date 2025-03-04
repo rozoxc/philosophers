@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo_philo.c                                       :+:      :+:    :+:   */
+/*   safe_mutex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 16:58:01 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/04 03:08:48 by ababdoul         ###   ########.fr       */
+/*   Created: 2025/03/04 18:19:19 by ababdoul          #+#    #+#             */
+/*   Updated: 2025/03/04 18:26:49 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "philo.h"
 
-void    algo_philo(s_philo *philo, s_data *data)
+void safe_mutext(pthread_mutex_t *mutex,m_code mcode)
 {
-    int i;
-
-    i = 0;
-    pthread_mutex_lock(data->)
-    while (i < data->philosopher_count)
-    {
-        
-    }
+    if (mcode == lock)
+        pthread_mutex_lock(mutex);
+    else if (mcode == unlock)
+        pthread_mutex_unlock(mutex);
+    else if (mcode == destroy)
+        pthread_mutex_destroy(mutex);
+    else if (mcode == init)
+        pthread_mutex_init(mutex, NULL);
 }

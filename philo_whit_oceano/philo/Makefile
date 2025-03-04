@@ -1,12 +1,13 @@
 NAME = philo
 CC = cc  
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -fsanitize=address
 HEADER = philo.h 
 
 SRC = philo.c \
 	philo_utils.c \
 	ft_atoi.c \
 	parse.c \
+	init.c \
 
 OBJS = $(SRC:.c=.o)
 

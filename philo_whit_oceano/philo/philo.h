@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 04:15:28 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/04 05:44:54 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/04 18:22:20 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@
 #include <pthread.h>
 #include <stdbool.h>
 
+
+typedef enum mutex_code
+{
+    lock,
+    unlock,
+    init,
+    create,
+    destroy,
+} m_code;
 typedef struct philo s_philo; // let compiler know that this struct it will exist
 
 typedef struct fork{
@@ -44,8 +53,8 @@ typedef struct  philo{
     long meal_eaten;
     bool full;
     long last_meal_time;
-    s_forks *left_fork;
-    s_forks *right_fork;
+    s_forks *first_fork;
+    s_forks *second_fork;
     pthread_t thread_id;
     s_data *data;
 } s_philo;
