@@ -8,7 +8,11 @@ SRC = philo.c \
 	ft_atoi.c \
 	parse.c \
 	init.c \
-
+	time.c \
+	safe_mutex.c \
+	getters_setters.c \
+	simulation.c \
+	
 OBJS = $(SRC:.c=.o)
 
 all : $(NAME)

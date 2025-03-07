@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 04:15:28 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/04 18:22:20 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/07 05:58:49 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,22 @@
 #include <pthread.h>
 #include <stdbool.h>
 
+typedef enum status
+{
+    eating,
+    sleeping,
+    thinking,
+    take_first_fork,
+    take_seconde_fork,
+    died,
+}s_status;
+
+typedef enum time_code
+{
+    seconde,
+    miliseconde,
+    microseconde,
+} s_time;
 
 typedef enum mutex_code
 {
@@ -28,6 +44,7 @@ typedef enum mutex_code
     init,
     create,
     destroy,
+    join,
 } m_code;
 typedef struct philo s_philo; // let compiler know that this struct it will exist
 
@@ -44,6 +61,9 @@ typedef struct data{
     long number_of_meals;
     long start_simulation;
     bool end_of_simulation;
+    bool all_thread_ready;
+    pthread_mutex_t table_mutex;
+    pthread_mutex_t write_mutex;
     s_forks *forks;
     s_philo *philos;
 } s_data;
@@ -65,4 +85,21 @@ long ft_atoi(char *str);
 int is_digit(char *str);
 
 void init_data(s_data *data);
+void start_simulation(s_data *data);
+void *philo_routine(void *data);
+
+void safe_mutex(pthread_mutex_t *mutex,m_code mcode);
+
+//getters and setters functions 
+void set_bool(pthread_mutex_t *mutex, bool *dest, bool value);
+bool get_bool(pthread_mutex_t *mutex, bool *value);
+void set_long(pthread_mutex_t *mutex, long *dest, long value);
+long get_long(pthread_mutex_t *mutex, long *value);
+bool  simulation_done(s_data *data);
+
+void wait_threads(s_data *data);
+long ft_time(s_time time_code);
+void ft_usleep(long usec, s_data *data);
+
+
 #endif 
