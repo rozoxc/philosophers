@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 03:46:43 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/07 06:01:16 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/09 03:58:22 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void *philo_routine(void *data)
         if (philo->full)
             return ;
         eat(philo);
-
         // thinking(philo);
     }
+    return NULL;
 }
 void start_simulation(s_data *data)
 {

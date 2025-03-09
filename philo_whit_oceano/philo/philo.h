@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 04:15:28 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/07 05:58:49 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/08 00:24:33 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <sys/time.h>
 #include <pthread.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 typedef enum status
 {

@@ -12,7 +12,8 @@ SRC = philo.c \
 	safe_mutex.c \
 	getters_setters.c \
 	simulation.c \
-	
+	status.c \
+
 OBJS = $(SRC:.c=.o)
 
 all : $(NAME)
