@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 04:21:20 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/04 05:44:32 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/12 03:50:36 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int main(int ac, char **av)
 
     if (!check_argument(ac))
         error_print("invalid number of argument !!\n");
-    parse_input(&data , av); // first 
-    init_data(&data);
-    // start_simulation(&data);
+    parse_input(&data , av); // done
+    init_data(&data); // done
+    start_simulation(&data); // still
     // clean(&data);
 }

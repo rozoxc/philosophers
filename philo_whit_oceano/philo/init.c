@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 05:45:01 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/07 05:57:05 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/10 23:28:47 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void philo_init(s_data *data)
     
     j = 1;
     i = 0;
-    while (data->philo_numbers)
+    while (i < data->philo_numbers)
     {
         philo = &data->philos[i];
         philo->id = j;
@@ -40,6 +40,7 @@ void philo_init(s_data *data)
         philo->data = data;
         init_forks(philo, data->forks, i);
         i++;
+        j++;
     }
 }
 void init_data(s_data *data)

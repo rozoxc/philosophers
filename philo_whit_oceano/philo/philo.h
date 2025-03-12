@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 04:15:28 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/08 00:24:33 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/10 20:56:05 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void start_simulation(s_data *data);
 void *philo_routine(void *data);
 
 void safe_mutex(pthread_mutex_t *mutex,m_code mcode);
+void safe_threads(pthread_t *thread,void *(*f)(void*), s_philo *philo , m_code t_code);
 
 //getters and setters functions 
 void set_bool(pthread_mutex_t *mutex, bool *dest, bool value);

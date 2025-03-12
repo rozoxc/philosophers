@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc  
-FLAGS = -Wall -Werror -Wextra -fsanitize=address
+FLAGS = -Wall -Werror -Wextra
 HEADER = philo.h 
 
 SRC = philo.c \
@@ -12,7 +12,6 @@ SRC = philo.c \
 	safe_mutex.c \
 	getters_setters.c \
 	simulation.c \
-	status.c \
 
 OBJS = $(SRC:.c=.o)
 
