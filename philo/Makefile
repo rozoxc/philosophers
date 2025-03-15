@@ -7,7 +7,7 @@ SRC = philo.c \
 	time.c \
 	action.c \
 	ft_atoi.c \
-	# algo_philo.c \
+	algo_philo.c \
 	
 	
 HEADER = philosopher.h

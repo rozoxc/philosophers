@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 21:56:49 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/04 03:55:08 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:55:25 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void *philosopher_routine(void *arg)
         print_status(philo, "died");
         return (NULL);
     }
-    // else if (data->philosopher_count > 1)
-    //     algo_philo(philo, data);
+    else if (data->philosopher_count > 1)
+        algo_philo(philo, data);
     return (NULL);
 }
 

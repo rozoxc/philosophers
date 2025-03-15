@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:10:16 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/04 03:54:44 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:13:22 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,15 @@ int init_data(s_data *data, int ac, char **av)
     data->start_time = get_time();
 
     if (pthread_mutex_init(&data->write_mutex, NULL))
+    {
+        printf("mutex init faild\n");
         return (0);
+    }
     if(pthread_mutex_init(&data->dead_mutex, NULL))
+    {
+        printf("mutex init faild\n");
         return (0);
+    }
     return (1);
 }
 int init_forks(s_data *data)
@@ -69,7 +75,6 @@ int init_philo(s_philo **philo, s_data *data)
         (*philo)[i].left_fork = data->forks[i];
         (*philo)[i].right_fork = data->forks[(i + 1) % data->philosopher_count];
         (*philo)[i].data = data;
-        printf(" philo number : %d\n", (*philo)[i].id );
         i++;
         j++;
     }
