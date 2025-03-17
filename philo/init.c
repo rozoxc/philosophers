@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:10:16 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/15 17:13:22 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/17 02:49:35 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int init_philo(s_philo **philo, s_data *data)
 {
     int i;
     int j;
-
     *philo = malloc(sizeof(s_philo) * data->philosopher_count);
+    data->forks = malloc(sizeof(s_data) * data->philosopher_count);
     if (!*philo)
         return (0);
     i = 0;

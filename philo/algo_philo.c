@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:58:01 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/15 17:21:43 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/03/16 23:36:49 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ void put_forks(s_philo *philos)
 }
 void    algo_philo(s_philo *philo, s_data *data)
 {
-    int i;
-
-    i = 0;
     if (data->philosopher_count % 2 == 0)
         ft_sleep(data->time_to_eat /  2);
     while (1)
