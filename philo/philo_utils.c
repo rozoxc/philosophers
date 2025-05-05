@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 23:55:03 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/28 01:32:38 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:42:26 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,20 @@ void print_status(s_philo *philo, char *message)
 		pthread_mutex_unlock(&data->write_mutex);
 	}
 	pthread_mutex_unlock(&data->dead_mutex);
+}
+int parse_input(s_data *data)
+{
+	if (data->number_of_meals <= 0)
+		return (0);
+	else if (data->philosopher_count <= 0)
+		return (0);
+	else if (data->time_to_die <= 0)
+		return (0);
+	else if (data->time_to_eat <= 0)
+		return (0);
+	else if (data->time_to_sleep <= 0)
+		return (0);
+	else if (data->time_to_think <= 0)
+		return (0);
+	return (1);
 }

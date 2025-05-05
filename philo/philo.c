@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:47:02 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/17 02:46:49 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/05 03:58:10 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ int main(int ac, char **av)
         printf("Usage: ./philo 12 1000 1000 120\n");
         return (0);
     }
+    // if (parse_input(&data) == 0)
+    //     return (printf("BAD ARGS !!!!\n"), 0);
+    if (!init_data(&data, ac, av))
+        return (printf("error of inizialize data!!!\n"), 0);
     if (!init_forks(&data))
     {
         printf("faild to initialize forks!! \n");
         return (0);
     }
-    if (!init_data(&data, ac, av))
-        return (printf("error of inizialize data!!!\n"), 0);
     if (!init_philo(&philo, &data))
     {
         printf("faild to inizialize philosophers !!\n"); 

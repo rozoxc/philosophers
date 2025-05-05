@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 SRC = philo.c \
 	philo_utils.c \
 	init.c \
@@ -8,6 +8,7 @@ SRC = philo.c \
 	action.c \
 	ft_atoi.c \
 	algo_philo.c \
+	monitor.c \
 	
 	
 HEADER = philosopher.h

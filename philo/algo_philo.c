@@ -6,59 +6,78 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:58:01 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/16 23:36:49 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/05 04:01:40 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
+void sleep_and_think(s_philo *philo)
+{
+    s_data *data;
+    
+    data = philo->data;
+    
+    // Sleep phase
+    print_status(philo, "is sleeping");
+    ft_sleep(data->time_to_sleep);
+    
+    // Check if a philosopher died during sleep
+    pthread_mutex_lock(&data->monitor_mutex);
+    if (data->death)
+    {
+        pthread_mutex_unlock(&data->monitor_mutex);
+        return;
+    }
+    pthread_mutex_unlock(&data->monitor_mutex);
+    
+    // Think phase
+    print_status(philo, "is thinking");
+    
+    // Add a small delay for even-numbered philosophers to prevent deadlock
+    if (philo->id % 2 == 0 && data->philosopher_count > 2)
+        ft_sleep(10);
+}
+void eat(s_philo *philo)
+{
+    s_data *data = philo->data;
+
+    print_status(philo, "is eating");
+    pthread_mutex_lock(&data->monitor_mutex);
+    philo->last_meal_time = get_time();
+    philo->meals_eaten++;
+    pthread_mutex_unlock(&data->monitor_mutex);
+    ft_sleep(data->time_to_eat);
+}
+
 void take_fork(s_data *data, s_philo *philo)
 {
-    if (data->philosopher_count % 2 == 0)
+    if (philo->id % 2 == 0)
     {
-        pthread_mutex_lock(&philo->right_fork);
+        pthread_mutex_lock(philo->right_fork);
         print_status(philo, "taken right fork");
-        pthread_mutex_lock(&philo->left_fork);
+        pthread_mutex_lock(philo->left_fork);
         print_status(philo, "taken left fork");   
     }
     else
     {
-        pthread_mutex_lock(&philo->left_fork);
+        pthread_mutex_lock(philo->left_fork);
         print_status(philo, "taken left fork");
-        pthread_mutex_lock(&philo->right_fork);
+        pthread_mutex_lock(philo->right_fork);
         print_status(philo, "taken right fork");
     }
+    pthread_mutex_lock(&data->monitor_mutex);
+    if (data->death)
+    {
+        pthread_mutex_unlock(&data->monitor_mutex);
+        pthread_mutex_unlock(philo->right_fork);
+        pthread_mutex_unlock(philo->left_fork);
+        return;
+    }
+    pthread_mutex_unlock(&data->monitor_mutex);
 }
 void put_forks(s_philo *philos)
 {
-    pthread_mutex_unlock(&philos->right_fork);
-    pthread_mutex_unlock(&philos->left_fork);
-}
-void    algo_philo(s_philo *philo, s_data *data)
-{
-    if (data->philosopher_count % 2 == 0)
-        ft_sleep(data->time_to_eat /  2);
-    while (1)
-    { 
-        if (pthread_mutex_lock(&data->dead_mutex))
-            printf("mutex lock faild\n");
-        if (data->death || philo->meals_eaten >= data->number_of_meals)
-        {
-            pthread_mutex_unlock(&data->dead_mutex);
-            break;
-        }
-        pthread_mutex_unlock(&data->dead_mutex);
-        take_fork(data, philo);
-        print_status(philo, "is eating");
-        if (pthread_mutex_lock(&data->dead_mutex))
-            printf("mutex faild\n");;
-        philo->last_meal_time = get_time();
-        philo->meals_eaten++;
-        pthread_mutex_unlock(&data->dead_mutex);
-        ft_sleep(data->time_to_eat);
-        put_forks(philo);
-        print_status(philo, "is sleeping");
-        ft_sleep(data->time_to_sleep);
-        print_status(philo, "is thinking");
-    }
+    pthread_mutex_unlock(philos->right_fork);
+    pthread_mutex_unlock(philos->left_fork);
 }

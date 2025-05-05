@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:39:19 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/03/04 04:12:48 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/05 03:46:29 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct t_data
     pthread_mutex_t write_mutex;
     pthread_mutex_t dead_mutex;
     pthread_mutex_t *forks;
+    pthread_mutex_t monitor_mutex;
+    pthread_t monitor_thread;
 
 } s_data;
 
@@ -44,8 +46,8 @@ typedef struct t_philo
     int meals_eaten;
     long last_meal_time;
     pthread_t thread;
-    pthread_mutex_t right_fork;
-    pthread_mutex_t left_fork;
+    pthread_mutex_t *right_fork;
+    pthread_mutex_t *left_fork;
     s_data          *data;
     
 } s_philo;
@@ -53,6 +55,7 @@ typedef struct t_philo
 // utils functions 
 int	ft_atoi(const char *str);
 void print_status(s_philo *philo, char *message);
+int parse_input(s_data *data);
 
 //time functions
 long    get_time();
@@ -69,5 +72,10 @@ int     start_simulation(s_philo *philos, s_data *data);
 void    check_death(s_philo *philos, s_data *data);
 void    stop_simulation(s_philo *philos, s_data *data);
 void    algo_philo(s_philo *philo, s_data *data);
+void *monitor_routine(void *arg);
+void take_fork(s_data *data, s_philo *philo);
+void put_forks(s_philo *philos);
+void sleep_and_think(s_philo *philos);
+void eat(s_philo *philo);
 
 #endif
