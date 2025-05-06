@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:12:49 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/05 04:34:44 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/05 21:47:41 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void *monitor_routine(void *arg)
     s_data *data = philo->data;
     int done;
     int i;
-
     while (1)
     {
         done = 0;
@@ -30,7 +29,6 @@ void *monitor_routine(void *arg)
             pthread_mutex_unlock(&data->monitor_mutex);
             break;
         }
-        
         // Check each philosopher's status
         for (i = 0; i < data->philosopher_count; i++)
         {

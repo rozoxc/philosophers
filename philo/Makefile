@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -fsanitize=thread
 SRC = philo.c \
 	philo_utils.c \
 	init.c \

@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 21:56:49 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/05 05:14:40 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/06 03:42:57 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,30 @@ void *philosopher_routine(void *arg)
         ft_sleep(data->time_to_eat / 2);
     while (1)
     {
-        pthread_mutex_lock(&data->monitor_mutex);
+        pthread_mutex_lock(&data->dead_mutex);
         if (data->death)
         {
-            pthread_mutex_unlock(&data->monitor_mutex);
+            pthread_mutex_unlock(&data->dead_mutex);
             break;
         }
-        pthread_mutex_unlock(&data->monitor_mutex);
+        pthread_mutex_unlock(&data->dead_mutex);
         
         take_fork(data, philo);
-        pthread_mutex_lock(&data->monitor_mutex);
+        pthread_mutex_lock(&data->dead_mutex);
         if (data->death)
         {
-            pthread_mutex_unlock(&data->monitor_mutex);
+            pthread_mutex_unlock(&data->dead_mutex);
             break;
         }
-        pthread_mutex_lock(&data->monitor_mutex);
+        pthread_mutex_unlock(&data->dead_mutex);
         eat(philo);
+        pthread_mutex_lock(&data->dead_mutex);
         if (data->death)
         {
-            pthread_mutex_unlock(&data->monitor_mutex);
+            pthread_mutex_unlock(&data->dead_mutex);
             break;
         }
-        pthread_mutex_unlock(&data->monitor_mutex);
+        pthread_mutex_unlock(&data->dead_mutex);
         put_forks(philo);
         sleep_and_think(philo);
     }
@@ -62,12 +63,8 @@ void *philosopher_routine(void *arg)
 int start_simulation(s_philo *philos, s_data *data)
 {
     int i;
-    int started_thread;
 
-    started_thread = 0;
     i = 0;
-    printf("Uninitialized mutex or philosopher structure\n");
-
     data->start_time = get_time();
     while (i < data->philosopher_count)
     {
@@ -79,18 +76,15 @@ int start_simulation(s_philo *philos, s_data *data)
         }
         i++;
     }
-    if (pthread_create(&data->monitor_thread, NULL, monitor_routine, data) != 0)
+    if (pthread_create(&data->monitor_thread, NULL, monitor_routine, philos) != 0)
     {
         data->death = 1;
         return (0);
     }
     i = 0;
-    printf("hey\n");
     while (i < data->philosopher_count)
     {
-        printf("hey1\n");
-        if (pthread_join(philos[i].thread, NULL) != 0)
-            return (0);
+        pthread_join(philos[i].thread, NULL);
         i++;
     }
     if (pthread_join(data->monitor_thread, NULL) != 0)

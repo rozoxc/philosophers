@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:58:01 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/05 04:01:40 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/06 03:44:34 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,25 @@ void eat(s_philo *philo)
 
 void take_fork(s_data *data, s_philo *philo)
 {
-    if (philo->id % 2 == 0)
-    {
-        pthread_mutex_lock(philo->right_fork);
-        print_status(philo, "taken right fork");
-        pthread_mutex_lock(philo->left_fork);
-        print_status(philo, "taken left fork");   
-    }
-    else
-    {
-        pthread_mutex_lock(philo->left_fork);
-        print_status(philo, "taken left fork");
-        pthread_mutex_lock(philo->right_fork);
-        print_status(philo, "taken right fork");
-    }
-    pthread_mutex_lock(&data->monitor_mutex);
-    if (data->death)
-    {
-        pthread_mutex_unlock(&data->monitor_mutex);
-        pthread_mutex_unlock(philo->right_fork);
-        pthread_mutex_unlock(philo->left_fork);
-        return;
-    }
-    pthread_mutex_unlock(&data->monitor_mutex);
+    (void)data;
+    pthread_mutex_lock(philo->right_fork);
+    print_status(philo, "taken right fork");
+    pthread_mutex_lock(philo->left_fork);
+    print_status(philo, "taken left fork");   
+    pthread_mutex_unlock(philo->right_fork);
+    pthread_mutex_unlock(philo->left_fork);
+    // pthread_mutex_lock(&data->dead_mutex);
+    // if (data->death)
+    // {
+    //     pthread_mutex_unlock(&data->dead_mutex);
+    //     return;
+    // }
+    // pthread_mutex_unlock(&data->dead_mutex);
 }
 void put_forks(s_philo *philos)
 {
     pthread_mutex_unlock(philos->right_fork);
+    print_status(philos, "put right fork");
     pthread_mutex_unlock(philos->left_fork);
+    print_status(philos, "put left fork");
 }
