@@ -9,7 +9,7 @@ SRC = philo.c \
 	ft_atoi.c \
 	algo_philo.c \
 	monitor.c \
-	
+	mutex_safe.c\
 	
 HEADER = philosopher.h
 OBJS = $(SRC:.c=.o)
