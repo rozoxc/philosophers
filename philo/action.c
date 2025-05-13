@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 21:56:49 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/13 01:28:02 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/13 04:32:42 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void	*philosopher_routine(void *arg)
 
 	philo = (s_philo *)arg;
 	data = philo->data;
-	if (data->philosopher_count == 1)
-	{
-		safe_mutex(philo->right_fork, LOCK);
-		print_status(philo, "has taken a fork");
-		ft_sleep(data->time_to_die);
-		print_status(philo, "died");
-		safe_mutex(philo->right_fork, UNLOCK);
-		return (NULL);
-	}
+	// if (data->philosopher_count == 1)
+	// {
+	// 	safe_mutex(philo->right_fork, LOCK);
+	// 	print_status(philo, "has taken a fork");
+	// 	ft_sleep(data->time_to_die);
+	// 	print_status(philo, "died");
+	// 	safe_mutex(philo->right_fork, UNLOCK);
+	// 	return (NULL);
+	// }
 	if (philo->id % 2 == 0)
 		ft_sleep(data->time_to_eat / 2);
 	while (1)

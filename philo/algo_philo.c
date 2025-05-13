@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:58:01 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/12 23:33:56 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/13 04:16:37 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ int	eat(s_philo *philo)
 
 	data = philo->data;
 	if (print_status(philo, "is eating"))
-		return (1);
+		return (safe_mutex(philo->right_fork, UNLOCK), safe_mutex(philo->left_fork, UNLOCK),1);
 	safe_mutex(&data->dead_mutex, LOCK);
 	philo->last_meal_time = get_time();
 	philo->meals_eaten++;
+	// if (philo->meals_eaten == philo->)
 	safe_mutex(&data->dead_mutex, UNLOCK);
 	ft_sleep(data->time_to_eat);
 	return (0);
@@ -45,10 +46,10 @@ int	take_fork(s_data *data, s_philo *philo)
 	(void)data;
 	safe_mutex(philo->right_fork, LOCK);
 	if (print_status(philo, "taken right fork"))
-		return (1);
+		return (safe_mutex(philo->right_fork, UNLOCK),1);
 	safe_mutex(philo->left_fork, LOCK);
 	if (print_status(philo, "taken left fork"))
-		return (1);
+		return (safe_mutex(philo->right_fork, UNLOCK), safe_mutex(philo->left_fork, UNLOCK),1);
 	return (0);
 }
 
