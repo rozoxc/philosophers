@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 21:56:49 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/09 03:37:59 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/13 01:28:02 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,14 @@ void	*philosopher_routine(void *arg)
 		ft_sleep(data->time_to_eat / 2);
 	while (1)
 	{
-		safe_mutex(&data->dead_mutex, LOCK);
-		if (data->death)
-		{
-			safe_mutex(&data->dead_mutex, UNLOCK);
-			break ;
-		}
-		safe_mutex(&data->dead_mutex, UNLOCK);
-		take_fork(data, philo);
-		safe_mutex(&data->dead_mutex, LOCK);
-		if (data->death)
-		{
-			safe_mutex(&data->dead_mutex, UNLOCK);
-			break ;
-		}
-		safe_mutex(&data->dead_mutex, UNLOCK);
-		eat(philo);
-		safe_mutex(&data->dead_mutex, LOCK);
-		if (data->death)
-		{
-			safe_mutex(&data->dead_mutex, UNLOCK);
-			break ;
-		}
-		safe_mutex(&data->dead_mutex, UNLOCK);
-		put_forks(philo);
-		sleep_and_think(philo);
+		if (take_fork(data, philo))
+			break;
+		if (eat(philo))
+			break;
+		if (put_forks(philo))
+			break;
+		if (sleep_and_think(philo))
+			break;
 	}
 	return (NULL);
 }
@@ -69,7 +52,7 @@ int	start_simulation(s_philo *philos, s_data *data)
 	data->start_time = get_time();
 	while (i < data->philosopher_count)
 	{
-		philos[i].last_meal_time = get_time();
+		// philos[i].last_meal_time = get_time();
 		if (!safe_thread(&philos[i].thread, CREAT, philosopher_routine, &philos[i]))
 		{
 			safe_mutex(&data->dead_mutex, LOCK);

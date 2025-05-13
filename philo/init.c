@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:10:16 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/09 01:54:34 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/13 00:15:45 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	init_forks(s_data *data)
 	{
 		if (!safe_mutex(&data->forks[i], INIT))
 		{
-			printf("failed mutex\n");
 			while (--i >= 0)
 				safe_mutex(&data->forks[i], DESTROY);
 			free(data->forks);

@@ -6,23 +6,23 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:03:45 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/02/28 02:52:01 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/12 23:52:11 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-long    get_time()
+size_t    get_time()
 {
     struct timeval tv;
 
     gettimeofday(&tv, NULL);
     return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
-void    ft_sleep(long miliseconde)
+void    ft_sleep(size_t miliseconde)
 {
-    long    start;
-    long    current;
+    size_t    start;
+    size_t    current;
 
     start = get_time();
     while (1)

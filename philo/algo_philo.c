@@ -6,57 +6,59 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:58:01 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/09 03:19:23 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/12 23:33:56 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	sleep_and_think(s_philo *philo)
+int 	sleep_and_think(s_philo *philo)
 {
 	s_data	*data;
 
 	data = philo->data;
-	print_status(philo, "is sleeping");
+	if (print_status(philo, "is sleeping"))
+		return (1);
 	ft_sleep(data->time_to_sleep);
-	safe_mutex(&data->monitor_mutex, LOCK);
-	if (data->death)
-	{
-		safe_mutex(&data->monitor_mutex, UNLOCK);
-		return ;
-	}
-	safe_mutex(&data->monitor_mutex, UNLOCK);
-	print_status(philo, "is thinking");
-	if (philo->id % 2 == 0 && data->philosopher_count > 2)
-		ft_sleep(10);
+	if (print_status(philo, "is thinking"))
+		return (1);
+	return (0);
 }
 
-void	eat(s_philo *philo)
+int	eat(s_philo *philo)
 {
 	s_data	*data;
 
 	data = philo->data;
-	print_status(philo, "is eating");
-	safe_mutex(&data->monitor_mutex, LOCK);
+	if (print_status(philo, "is eating"))
+		return (1);
+	safe_mutex(&data->dead_mutex, LOCK);
 	philo->last_meal_time = get_time();
 	philo->meals_eaten++;
-	safe_mutex(&data->monitor_mutex, UNLOCK);
+	safe_mutex(&data->dead_mutex, UNLOCK);
 	ft_sleep(data->time_to_eat);
+	return (0);
 }
 
-void	take_fork(s_data *data, s_philo *philo)
+int	take_fork(s_data *data, s_philo *philo)
 {
 	(void)data;
 	safe_mutex(philo->right_fork, LOCK);
-	print_status(philo, "taken right fork");
+	if (print_status(philo, "taken right fork"))
+		return (1);
 	safe_mutex(philo->left_fork, LOCK);
-	print_status(philo, "taken left fork");
+	if (print_status(philo, "taken left fork"))
+		return (1);
+	return (0);
 }
 
-void	put_forks(s_philo *philos)
+int	put_forks(s_philo *philos)
 {
 	safe_mutex(philos->right_fork, UNLOCK);
-	print_status(philos, "put right fork");
 	safe_mutex(philos->left_fork, UNLOCK);
-	print_status(philos, "put left fork");
+	safe_mutex(&philos->data->dead_mutex, LOCK);
+	if (philos->meals_eaten == philos->data->number_of_meals)
+		return (safe_mutex(&philos->data->dead_mutex, UNLOCK),1);
+	safe_mutex(&philos->data->dead_mutex, UNLOCK);
+	return (0);
 }

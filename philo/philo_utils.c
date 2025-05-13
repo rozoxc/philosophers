@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 23:55:03 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/09 03:22:34 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/13 01:42:25 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,24 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-void print_status(s_philo *philo, char *message)
+int print_status(s_philo *philo, char *message)
 {
     long time_stamp;
     s_data *data;
-    int should_print = 0;
     
     data = philo->data;
     safe_mutex(&data->dead_mutex, LOCK);
     
-    if (!data->death || !ft_strcmp(message, "died"))
+    if (!data->death)
     {
-        should_print = 1;
-        time_stamp = get_time() - data->start_time;
+		time_stamp = get_time() - data->start_time;
+		printf("%ld ms : philo[%d] %s\n", time_stamp, philo->id, message);
+		safe_mutex(&data->dead_mutex, UNLOCK);
+       	return (0);
     }
-    
     safe_mutex(&data->dead_mutex, UNLOCK);
-    
-    if (should_print)
-    {
-        safe_mutex(&data->write_mutex, LOCK);
-        printf("%ld ms : philo[%d] %s\n", time_stamp, philo->id, message);
-        safe_mutex(&data->write_mutex, UNLOCK);
-    }
+	return (1);
+
 }
 
 void	cleanup(s_data *data, s_philo *philo)
