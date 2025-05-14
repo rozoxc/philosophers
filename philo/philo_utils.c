@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 23:55:03 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/13 01:42:25 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/14 02:51:18 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	cleanup(s_data *data, s_philo *philo)
 	}
 	safe_mutex(&data->dead_mutex, DESTROY);
 	safe_mutex(&data->monitor_mutex, DESTROY);
-	safe_mutex(&data->write_mutex, DESTROY);
 	free(data->forks);
 	if (philo)
 		free(philo);

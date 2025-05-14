@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:58:01 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/13 04:16:37 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/14 03:14:06 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,14 @@ int	eat(s_philo *philo)
 	safe_mutex(&data->dead_mutex, LOCK);
 	philo->last_meal_time = get_time();
 	philo->meals_eaten++;
-	// if (philo->meals_eaten == philo->)
+	// if (data->number_of_meals == philo->meals_eaten)
+	// {
+	// 	safe_mutex(philo->right_fork, UNLOCK);
+	// 	safe_mutex(philo->left_fork, UNLOCK);
+	// 	safe_mutex(&data->dead_mutex, UNLOCK);
+	// 	printf("all philosopher ate\n");
+	// 	return (1);
+	// }
 	safe_mutex(&data->dead_mutex, UNLOCK);
 	ft_sleep(data->time_to_eat);
 	return (0);

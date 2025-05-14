@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:10:16 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/13 00:15:45 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/14 02:51:11 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,10 @@ int	init_data(s_data *data, int ac, char **av)
 	data->all_ate = 0;
 	data->start_time = get_time();
 	data->forks = NULL;
-	if (!safe_mutex(&data->write_mutex, INIT))
-		return (0);
 	if (!safe_mutex(&data->dead_mutex, INIT))
-	{
-		safe_mutex(&data->write_mutex, DESTROY);
 		return (0);
-	}
 	if (!safe_mutex(&data->monitor_mutex, INIT))
 	{
-		safe_mutex(&data->write_mutex, DESTROY);
 		safe_mutex(&data->dead_mutex, DESTROY);
 		return (0);
 	}

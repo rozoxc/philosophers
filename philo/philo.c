@@ -6,12 +6,15 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:47:02 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/09 02:02:00 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/14 02:57:57 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
-
+void f()
+{
+	system("leaks philo");
+}
 int	check_argument(int i)
 {
 	if (i == 5 || i == 6)
@@ -45,4 +48,5 @@ int	main(int ac, char **av)
 	if (!start_simulation(philo, &data))
 		return (printf("start simulation faild !!"), cleanup(&data, NULL), 0);
 	cleanup(&data, NULL);
+	// f();
 }

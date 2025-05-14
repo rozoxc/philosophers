@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:39:19 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/14 02:49:04 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/14 03:04:49 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ typedef struct t_data
 {
 	int				philosopher_count;
 	size_t				time_to_die;
-	int				time_to_sleep;
-	int				time_to_eat;
-	int				time_to_think;
+	size_t				time_to_sleep;
+	size_t				time_to_eat;
+	size_t				time_to_think;
 	long			start_time;
 	int				all_ate;
 	int				death;

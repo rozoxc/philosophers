@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:12:49 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/13 04:29:08 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/14 03:06:47 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static int	check_philo_death(s_philo *philo, s_data *data, int i)
 {
 	(void)philo;
-	// if (data->death)
-	// 	return (1);
+	if (data->death)
+		return (1);
 	if (get_time() - philo->last_meal_time > data->time_to_die)
 	{
 		data->death = 1;
-		printf("philo[%d] on %ld ms : is died\n", i , get_time() - data->start_time);
+		printf("%ld ms : philo[%d] is died\n", get_time() - data->start_time, i);
 		return (1);
 	}
 	return (0);
