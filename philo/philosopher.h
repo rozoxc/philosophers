@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:39:19 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/12 23:56:02 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/14 02:49:04 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct t_data
 	int				all_ate;
 	int				death;
 	int				number_of_meals;
-	pthread_mutex_t	write_mutex;
+	// pthread_mutex_t	write_mutex;
 	pthread_mutex_t	dead_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	monitor_mutex;
