@@ -6,18 +6,33 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 21:56:49 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/14 03:05:38 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/23 04:04:11 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
+void	algo_loop(t_data *data, t_philo *philo)
+{
+	while (1)
+	{
+		if (take_fork(data, philo))
+			break ;
+		if (eat(philo))
+			break ;
+		if (put_forks(philo))
+			break ;
+		if (sleep_and_think(philo))
+			break ;
+	}
+}
+
 void	*philosopher_routine(void *arg)
 {
-	s_philo	*philo;
-	s_data	*data;
+	t_philo	*philo;
+	t_data	*data;
 
-	philo = (s_philo *)arg;
+	philo = (t_philo *)arg;
 	data = philo->data;
 	if (data->philosopher_count == 1)
 	{
@@ -31,21 +46,11 @@ void	*philosopher_routine(void *arg)
 	}
 	if (philo->id % 2 == 0)
 		ft_sleep(data->time_to_eat / 2);
-	while (1)
-	{
-		if (take_fork(data, philo))
-			break;
-		if (eat(philo))
-			break;
-		if (put_forks(philo))
-			break;
-		if (sleep_and_think(philo))
-			break;
-	}
+	algo_loop(data, philo);
 	return (NULL);
 }
 
-int	start_simulation(s_philo *philos, s_data *data)
+int	start_simulation(t_philo *philos, t_data *data)
 {
 	int	i;
 
@@ -53,8 +58,8 @@ int	start_simulation(s_philo *philos, s_data *data)
 	data->start_time = get_time();
 	while (i < data->philosopher_count)
 	{
-		// philos[i].last_meal_time = get_time();
-		if (!safe_thread(&philos[i].thread, CREAT, philosopher_routine, &philos[i]))
+		if (!safe_thread(&philos[i].thread, CREAT,
+				philosopher_routine, &philos[i]))
 		{
 			safe_mutex(&data->dead_mutex, LOCK);
 			data->death = 1;

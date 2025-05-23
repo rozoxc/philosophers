@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc
-FLAGS = -Wall -Wextra -Werror #-fsanitize=thread
+FLAGS = -Wall -Wextra -Werror -fsanitize=thread
 SRC = philo.c \
 	philo_utils.c \
 	init.c \
@@ -9,7 +9,8 @@ SRC = philo.c \
 	ft_atoi.c \
 	algo_philo.c \
 	monitor.c \
-	mutex_safe.c\
+	mutex_safe.c \
+	parse_input.c \
 	
 HEADER = philosopher.h
 OBJS = $(SRC:.c=.o)

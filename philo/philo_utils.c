@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 23:55:03 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/14 02:51:18 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/23 04:16:57 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,25 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-int print_status(s_philo *philo, char *message)
+int	print_status(t_philo *philo, char *message)
 {
-    long time_stamp;
-    s_data *data;
-    
-    data = philo->data;
-    safe_mutex(&data->dead_mutex, LOCK);
-    
-    if (!data->death)
-    {
+	long	time_stamp;
+	t_data	*data;
+
+	data = philo->data;
+	safe_mutex(&data->dead_mutex, LOCK);
+	if (!data->death)
+	{
 		time_stamp = get_time() - data->start_time;
 		printf("%ld ms : philo[%d] %s\n", time_stamp, philo->id, message);
 		safe_mutex(&data->dead_mutex, UNLOCK);
-       	return (0);
-    }
-    safe_mutex(&data->dead_mutex, UNLOCK);
+		return (0);
+	}
+	safe_mutex(&data->dead_mutex, UNLOCK);
 	return (1);
-
 }
 
-void	cleanup(s_data *data, s_philo *philo)
+void	cleanup(t_data *data, t_philo *philo)
 {
 	int	i;
 

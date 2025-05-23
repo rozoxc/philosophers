@@ -6,15 +6,12 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 20:47:02 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/14 02:57:57 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/23 04:24:28 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
-void f()
-{
-	system("leaks philo");
-}
+
 int	check_argument(int i)
 {
 	if (i == 5 || i == 6)
@@ -24,17 +21,16 @@ int	check_argument(int i)
 
 int	main(int ac, char **av)
 {
-	s_data	data;
-	s_philo	*philo;
+	t_data	data;
+	t_philo	*philo;
 
-	if (!check_argument(ac))
-	{
-		printf("invalid number of argument!!\n");
-		printf("Usage: ./philo 12 1000 1000 120\n");
-		return (0);
-	}
 	if (!init_data(&data, ac, av))
 		return (printf("error of inizialize data!!!\n"), 0);
+	if (!check_argument(ac) || !parse_input(&data))
+	{
+		perror("error\n");
+		return (0);
+	}
 	if (!init_forks(&data))
 	{
 		printf("faild to initialize forks!! \n");
@@ -48,5 +44,4 @@ int	main(int ac, char **av)
 	if (!start_simulation(philo, &data))
 		return (printf("start simulation faild !!"), cleanup(&data, NULL), 0);
 	cleanup(&data, NULL);
-	// f();
 }

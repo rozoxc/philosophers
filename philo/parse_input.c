@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 18:03:45 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/23 04:34:35 by ababdoul         ###   ########.fr       */
+/*   Created: 2025/05/23 04:26:41 by ababdoul          #+#    #+#             */
+/*   Updated: 2025/05/23 04:34:49 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-size_t	get_time(void)
+int		parse_input(t_data *data)
 {
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
-}
-
-void	ft_sleep(size_t miliseconde)
-{
-	size_t	start;
-	size_t	current;
-
-	start = get_time();
-	while (1)
-	{
-		current = get_time();
-		if (current - start >= miliseconde)
-			break ;
-		usleep(100);
-	}
+    if (data->philosopher_count == 0)
+        return (0);
+    else if (data->number_of_meals == 0)
+        return (0);
+    else if (data->time_to_die == 0)
+        return (0);
+    else if (data->time_to_eat == 0)
+        return (0);
+    else if (data->time_to_sleep == 0)
+        return (0);
+    return (1);
 }

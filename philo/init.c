@@ -6,13 +6,13 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:10:16 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/14 02:51:11 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/23 04:02:38 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	init_data(s_data *data, int ac, char **av)
+int	init_data(t_data *data, int ac, char **av)
 {
 	data->philosopher_count = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
@@ -36,7 +36,7 @@ int	init_data(s_data *data, int ac, char **av)
 	return (1);
 }
 
-int	init_forks(s_data *data)
+int	init_forks(t_data *data)
 {
 	int	i;
 
@@ -58,12 +58,12 @@ int	init_forks(s_data *data)
 	return (1);
 }
 
-int	init_philo(s_philo **philo, s_data *data)
+int	init_philo(t_philo **philo, t_data *data)
 {
 	int	i;
 	int	j;
 
-	*philo = malloc(sizeof(s_philo) * data->philosopher_count);
+	*philo = malloc(sizeof(t_philo) * data->philosopher_count);
 	if (!*philo)
 		return (0);
 	i = 0;
@@ -74,7 +74,8 @@ int	init_philo(s_philo **philo, s_data *data)
 		(*philo)[i].meals_eaten = 0;
 		(*philo)[i].last_meal_time = data->start_time;
 		(*philo)[i].left_fork = &data->forks[i];
-		(*philo)[i].right_fork = &data->forks[(i + 1) % data->philosopher_count];
+		(*philo)[i].right_fork = &data->forks[(i + 1)
+			% data->philosopher_count];
 		(*philo)[i].data = data;
 		i++;
 		j++;
