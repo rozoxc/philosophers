@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 23:55:03 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/23 04:16:57 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/29 22:07:40 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
+int	ft_isdigit(int c)
+{
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
+}
+
 int	print_status(t_philo *philo, char *message)
 {
 	long	time_stamp;
@@ -29,10 +36,10 @@ int	print_status(t_philo *philo, char *message)
 
 	data = philo->data;
 	safe_mutex(&data->dead_mutex, LOCK);
-	if (!data->death)
+	if (data->death == 0)
 	{
 		time_stamp = get_time() - data->start_time;
-		printf("%ld ms : philo[%d] %s\n", time_stamp, philo->id, message);
+		printf("%ld %d %s\n", time_stamp, philo->id, message);
 		safe_mutex(&data->dead_mutex, UNLOCK);
 		return (0);
 	}

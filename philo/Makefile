@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc
-FLAGS = -Wall -Wextra -Werror -fsanitize=thread
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 SRC = philo.c \
 	philo_utils.c \
 	init.c \
@@ -24,11 +24,10 @@ $(NAME): $(OBJS)
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	rm  $(OBJS)
+	rm  -rf $(OBJS)
 
 fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
-
 .PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:58:01 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/23 04:21:14 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/29 22:52:20 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	sleep_and_think(t_philo *philo)
 	data = philo->data;
 	if (print_status(philo, "is sleeping"))
 		return (1);
-	ft_sleep(data->time_to_sleep);
+	ft_sleep(data->time_to_sleep, data);
 	if (print_status(philo, "is thinking"))
 		return (1);
 	return (0);
@@ -36,19 +36,24 @@ int	eat(t_philo *philo)
 	safe_mutex(&data->dead_mutex, LOCK);
 	philo->last_meal_time = get_time();
 	philo->meals_eaten++;
+	data->is_eating = 1;
 	safe_mutex(&data->dead_mutex, UNLOCK);
-	ft_sleep(data->time_to_eat);
+	ft_sleep(data->time_to_eat, data);
 	return (0);
 }
 
 int	take_fork(t_data *data, t_philo *philo)
 {
 	(void)data;
+	safe_mutex(&data->dead_mutex, LOCK);
+	if (data->death)
+		return (safe_mutex(&data->dead_mutex, UNLOCK), 1);
+	safe_mutex(&data->dead_mutex, UNLOCK);
 	safe_mutex(philo->right_fork, LOCK);
-	if (print_status(philo, "taken right fork"))
+	if (print_status(philo, "has taken a fork"))
 		return (safe_mutex(philo->right_fork, UNLOCK), 1);
 	safe_mutex(philo->left_fork, LOCK);
-	if (print_status(philo, "taken left fork"))
+	if (print_status(philo, "has taken a fork"))
 		return (safe_mutex(philo->right_fork, UNLOCK),
 			safe_mutex(philo->left_fork, UNLOCK), 1);
 	return (0);

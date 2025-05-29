@@ -6,13 +6,13 @@
 /*   By: ababdoul <ababdoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:03:45 by ababdoul          #+#    #+#             */
-/*   Updated: 2025/05/23 04:34:35 by ababdoul         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:23:19 by ababdoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-size_t	get_time(void)
+int	get_time(void)
 {
 	struct timeval	tv;
 
@@ -20,14 +20,21 @@ size_t	get_time(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void	ft_sleep(size_t miliseconde)
+void	ft_sleep(int miliseconde, t_data *data)
 {
-	size_t	start;
-	size_t	current;
+	int	start;
+	int	current;
 
 	start = get_time();
 	while (1)
 	{
+		safe_mutex(&data->dead_mutex, LOCK);
+		if (data->death == 1)
+		{
+			safe_mutex(&data->dead_mutex, UNLOCK);
+			break ;
+		}
+		safe_mutex(&data->dead_mutex, UNLOCK);
 		current = get_time();
 		if (current - start >= miliseconde)
 			break ;
